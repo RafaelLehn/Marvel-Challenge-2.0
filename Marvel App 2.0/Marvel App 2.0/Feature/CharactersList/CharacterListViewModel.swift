@@ -8,6 +8,7 @@
 import Foundation
 import Network
 
+
 protocol CharacterListViewModelProtocol: AnyObject {
     func returnCharacters()
     func returnError()
@@ -21,6 +22,8 @@ class CharacterListViewModel {
     
     var searchCharacterList: [Character] = []
     
+    var favorites : [FavoriteHero] = []
+    
     var numberOffset = 0
     
     var delegate: CharacterListViewModelProtocol?
@@ -30,6 +33,8 @@ class CharacterListViewModel {
     var errorValue = false
     
     private let networkService = Network()
+    
+    var coreData = DataBaseHelper()
         
     
     init(coordinator: AppCoordinator) {
@@ -74,5 +79,41 @@ class CharacterListViewModel {
         coordinator.goToDetail(character: character)
     }
     
+    func buttonStarTappedAt(HeroIndex: Int){
+       let toFavorite = characterList[HeroIndex]
+        if checkFavorite(movieName: toFavorite.name){
+            let favMovie = favorites.filter { item in item.name.contains(toFavorite.name) }
+            deleteFavorite(hero: favMovie[0])
+            fetchCoreData()
+    
+        } else {
+            saveFavorite(hero: toFavorite)
+            fetchCoreData()
+        }
+    }
+    
+    func checkFavorite(movieName: String) -> Bool{return favorites.contains(where: {$0.name == movieName})}
+    
+    func deleteFavorite(hero: FavoriteHero) { coreData.delete(hero: hero) }
+    
+    func saveFavorite(hero: Character){
+        
+        let favoriteHero: HeroToCoreData = HeroToCoreData(
+            
+            name: hero.name, imageURL: "\(hero.thumbnail.path).\(hero.thumbnail.thumbnailExtension.rawValue)", summary: hero.description
+        )
+        coreData.save(hero: favoriteHero)
+    }
+    
+    func fetchCoreData(){
+        coreData.requestFavorites { (favoritesMoviesCoreData:Result<[FavoriteHero], Error>) in
+            switch favoritesMoviesCoreData {
+            case.success(let favoritesMoviesCoreData):
+                self.favorites = favoritesMoviesCoreData
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
     
 }

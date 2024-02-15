@@ -113,3 +113,10 @@ enum URLType: String, Codable {
     case detail = "detail"
     case wiki = "wiki"
 }
+
+
+struct HeroToCoreData : Codable {
+    var name: String
+    var imageURL : String
+    var summary : String
+}

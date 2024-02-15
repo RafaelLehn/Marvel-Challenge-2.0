@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol CharacterTableViewCellDelegate: AnyObject {
+    func isStarButtonTouched(indexPath: Int)
+}
+
 class CharacterTableViewCell: UITableViewCell {
     
     static let identifier: String = "CharacterTableViewCell"
+    
+    weak var delegate: CharacterTableViewCellDelegate?
+    
+    var item: Int? = nil
     
     lazy var characterName: UILabel = {
         let characterName = UILabel()
@@ -37,13 +45,19 @@ class CharacterTableViewCell: UITableViewCell {
     lazy var favoriteButtonView: UIButton = {
         let favoriteButtonView = UIButton()
         favoriteButtonView.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButtonView.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
         favoriteButtonView.tintColor = .yellow
+        favoriteButtonView.addTarget(self, action: #selector(verifyFavorite), for: .touchUpInside)
         return favoriteButtonView
     }()
     
-    func setupCell() {
-        
+    @objc private func verifyFavorite(){
+        delegate?.isStarButtonTouched(indexPath: self.item!)
+    }
+    
+    func setupCell(characterNameText: String, characterImageUrl: String, starImage: String) {
+        characterName.text = characterNameText
+        favoriteButtonView.setBackgroundImage(UIImage(systemName: starImage), for: .normal)
+        characterImageView.kf.setImage(with: URL(string: characterImageUrl))
     }
     
     

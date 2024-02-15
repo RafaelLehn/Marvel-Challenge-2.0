@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         self.myView.loadingView.startAnimating()
         self.myView.loadingView.isHidden = false
         viewModel.fetchCharacters()
+        viewModel.fetchCoreData()
     }
     
     func fetchCharacterListEnd() {
@@ -62,6 +63,26 @@ class ViewController: UIViewController {
             self.myView.tableView.isHidden = false
             self.myView.loadingView.stopAnimating()
         }
+    }
+    
+    func verifyFavorite(index: Int) -> String {
+        
+        if viewModel.checkFavorite(movieName: viewModel.characterList[index].name){
+            return "star.fill"
+        } else {
+            return "star"
+        }
+        
+    }
+    
+    func verifyFavoriteInSearching(index: Int) -> String {
+        
+        if viewModel.checkFavorite(movieName: viewModel.searchCharacterList[index].name){
+            return "star.fill"
+        } else {
+            return "star"
+        }
+        
     }
     
     
@@ -151,16 +172,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         if viewModel.isSearching {
             if viewModel.searchCharacterList.count > 0 {
-                cell?.characterName.text = viewModel.searchCharacterList[indexPath.row].name
-                cell?.characterImageView.kf.setImage(with: URL(string: "\(viewModel.searchCharacterList[indexPath.row].thumbnail.path).\(viewModel.searchCharacterList[indexPath.row].thumbnail.thumbnailExtension.rawValue)"))
+                cell?.setupCell(characterNameText: viewModel.searchCharacterList[indexPath.row].name, characterImageUrl: "\(viewModel.searchCharacterList[indexPath.row].thumbnail.path).\(viewModel.searchCharacterList[indexPath.row].thumbnail.thumbnailExtension.rawValue)", starImage: verifyFavoriteInSearching(index: indexPath.row))
             } else {
                 errorCell?.setupCell(titleText: "No hero with this name was found", hideButton: true)
                 return errorCell ?? UITableViewCell()
             }
         } else {
             
-            cell?.characterName.text = viewModel.characterList[indexPath.row].name
-            cell?.characterImageView.kf.setImage(with: URL(string: "\(viewModel.characterList[indexPath.row].thumbnail.path).\(viewModel.characterList[indexPath.row].thumbnail.thumbnailExtension.rawValue)"))
+            cell?.setupCell(characterNameText: viewModel.characterList[indexPath.row].name, characterImageUrl: "\(viewModel.characterList[indexPath.row].thumbnail.path).\(viewModel.characterList[indexPath.row].thumbnail.thumbnailExtension.rawValue)", starImage: verifyFavorite(index: indexPath.row))
         }
         
         
@@ -168,6 +187,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView.isLast(for: indexPath) && !viewModel.isSearching {
             fetchCharacterListStart()
         }
+        
+        cell?.item = indexPath.row
+        cell?.delegate = self
         
         return cell ?? UITableViewCell()
     }
@@ -199,3 +221,12 @@ extension UITableView {
 }
 
 
+
+extension ViewController: CharacterTableViewCellDelegate {
+    func isStarButtonTouched(indexPath: Int) {
+        viewModel.buttonStarTappedAt(HeroIndex: indexPath)
+        myView.tableView.reloadData()
+    }
+    
+    
+}

@@ -11,6 +11,8 @@
 		121652612B7E37940091E445 /* FavoritsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121652602B7E37940091E445 /* FavoritsListViewController.swift */; };
 		121652632B7E38190091E445 /* FavoritsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121652622B7E38190091E445 /* FavoritsListViewModel.swift */; };
 		121652652B7E38610091E445 /* FavoritsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121652642B7E38610091E445 /* FavoritsListView.swift */; };
+		124906DD2B7E5C52004B38A5 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124906DC2B7E5C52004B38A5 /* DataBaseHelper.swift */; };
+		124906E22B7E5E45004B38A5 /* HeroModelData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 124906E02B7E5E45004B38A5 /* HeroModelData.xcdatamodeld */; };
 		12644FE92B7CDB3400E81ACF /* ParallelogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12644FE82B7CDB3400E81ACF /* ParallelogramView.swift */; };
 		12644FF22B7CDE0E00E81ACF /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12644FF12B7CDE0E00E81ACF /* CharacterTableViewCell.swift */; };
 		12644FF52B7CE18700E81ACF /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12644FF42B7CE18700E81ACF /* CharacterListViewModel.swift */; };
@@ -36,6 +38,8 @@
 		121652602B7E37940091E445 /* FavoritsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsListViewController.swift; sourceTree = "<group>"; };
 		121652622B7E38190091E445 /* FavoritsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsListViewModel.swift; sourceTree = "<group>"; };
 		121652642B7E38610091E445 /* FavoritsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsListView.swift; sourceTree = "<group>"; };
+		124906DC2B7E5C52004B38A5 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
+		124906E12B7E5E45004B38A5 /* HeroModelData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HeroModelData.xcdatamodel; sourceTree = "<group>"; };
 		12644FE82B7CDB3400E81ACF /* ParallelogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallelogramView.swift; sourceTree = "<group>"; };
 		12644FF12B7CDE0E00E81ACF /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		12644FF42B7CE18700E81ACF /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
@@ -82,9 +86,19 @@
 			path = FavoritsList;
 			sourceTree = "<group>";
 		};
+		124906DB2B7E5C49004B38A5 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				124906DC2B7E5C52004B38A5 /* DataBaseHelper.swift */,
+				124906E02B7E5E45004B38A5 /* HeroModelData.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		12644FE72B7CDB1C00E81ACF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				124906DB2B7E5C49004B38A5 /* CoreData */,
 				12644FE82B7CDB3400E81ACF /* ParallelogramView.swift */,
 			);
 			path = Common;
@@ -326,6 +340,7 @@
 				12644FF92B7CFBA900E81ACF /* CharacterDetailViewController.swift in Sources */,
 				121652612B7E37940091E445 /* FavoritsListViewController.swift in Sources */,
 				12644FE92B7CDB3400E81ACF /* ParallelogramView.swift in Sources */,
+				124906DD2B7E5C52004B38A5 /* DataBaseHelper.swift in Sources */,
 				121652632B7E38190091E445 /* FavoritsListViewModel.swift in Sources */,
 				12644FFD2B7CFFAC00E81ACF /* Coordinator.swift in Sources */,
 				12FACFB32B73C947005C68A4 /* ViewController.swift in Sources */,
@@ -337,6 +352,7 @@
 				12E723652B755EC000464490 /* CharacterModel.swift in Sources */,
 				12FACFB12B73C947005C68A4 /* SceneDelegate.swift in Sources */,
 				12E723672B755F2700464490 /* Network.swift in Sources */,
+				124906E22B7E5E45004B38A5 /* HeroModelData.xcdatamodeld in Sources */,
 				121652652B7E38610091E445 /* FavoritsListView.swift in Sources */,
 				126450012B7D04FD00E81ACF /* CharacterDetailViewModel.swift in Sources */,
 				12644FF52B7CE18700E81ACF /* CharacterListViewModel.swift in Sources */,
@@ -557,6 +573,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		124906E02B7E5E45004B38A5 /* HeroModelData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				124906E12B7E5E45004B38A5 /* HeroModelData.xcdatamodel */,
+			);
+			currentVersion = 124906E12B7E5E45004B38A5 /* HeroModelData.xcdatamodel */;
+			path = HeroModelData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 12FACFA32B73C947005C68A4 /* Project object */;
 }

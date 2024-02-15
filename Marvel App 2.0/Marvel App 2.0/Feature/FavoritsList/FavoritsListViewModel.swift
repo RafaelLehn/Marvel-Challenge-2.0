@@ -9,27 +9,43 @@ import Foundation
 import Network
 
 protocol FavoritsListViewModelProtocol: AnyObject {
-    func returnCharacters()
-    func returnError()
+    func showRemovedFavorits()
 }
 
 class FavoritsListViewModel {
     
-    weak var coordinator : AppCoordinator!
+    private let coordinator: AppCoordinator!
+    var favorites : [FavoriteHero] = []
+
+    var coreData = DataBaseHelper()
     
-    var characterList: [Character] = []
+    var delegate: FavoritsListViewModelProtocol?
     
-    var delegate: CharacterListViewModelProtocol?
-    
-    var errorValue = false
         
     
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
     }
     
-    func fetchCharacters() {
+    public func goToDetail(hero: Character) {
+        coordinator.goToDetail(character: hero)
+    }
+    
+    func deleteFavorite(hero: FavoriteHero) {
+        coreData.delete(hero: hero)
+        self.delegate?.showRemovedFavorits()
         
+    }
+    
+    func fetchCoreData(){
+        coreData.requestFavorites { (favoritesMoviesCoreData:Result<[FavoriteHero], Error>) in
+            switch favoritesMoviesCoreData {
+            case.success(let favoritesMoviesCoreData):
+                self.favorites = favoritesMoviesCoreData
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
     func goToDetail(character: Character){
