@@ -173,7 +173,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.coordinator.goToDetail(character: viewModel.characterList[indexPath.row])
+        if viewModel.isSearching {
+            viewModel.coordinator.goToDetail(character: viewModel.searchCharacterList[indexPath.row])
+        } else {
+            viewModel.coordinator.goToDetail(character: viewModel.characterList[indexPath.row])
+        }
     }
 }
 

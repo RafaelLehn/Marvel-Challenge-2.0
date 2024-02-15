@@ -32,13 +32,14 @@ class CharacterListView: UIView {
     
     
     lazy var searchTextField: UISearchBar = {
-        let textField =  UISearchBar(frame: .zero)
-        textField.placeholder = "Search your hero"
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.keyboardType = UIKeyboardType.default
-        textField.returnKeyType = UIReturnKeyType.done
-        return textField
+        let searchTextField =  UISearchBar(frame: .zero)
+        searchTextField.placeholder = "Search your hero"
+        searchTextField.barStyle = .black
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.autocorrectionType = UITextAutocorrectionType.no
+        searchTextField.keyboardType = UIKeyboardType.default
+        searchTextField.returnKeyType = UIReturnKeyType.done
+        return searchTextField
     }()
     
     lazy var favoritesButton: UIButton = {
